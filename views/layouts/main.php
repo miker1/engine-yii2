@@ -1,7 +1,9 @@
 <?php
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
+use yii\bootstrap\Modal;
 use yii\bootstrap\NavBar;
+use yii\bootstrap\ActiveForm;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
@@ -26,12 +28,41 @@ AppAsset::register($this);
     <div class="wrap">
         <?php
             NavBar::begin([
-                'brandLabel' => 'My Company',
-                'brandUrl' => Yii::$app->homeUrl,
+                'brandLabel' => 'My Blog',
+                'brandUrl'=>['main/search'],
+                //'brandUrl' => Yii::$app->homeUrl,
                 'options' => [
                     'class' => 'navbar-inverse navbar-fixed-top',
                 ],
             ]);
+            
+            ActiveForm::begin(
+                    [
+                        'action'=>['main/search'],
+                        'method'=>'get',
+                        'options'=>['class'=>'navbar-form navbar-left']
+                    ]);
+            echo'<div class="input-group input-group-sm">'; //объединяем поле поиска и кнопку отправки
+            echo Html::input(
+                    'type: text',
+                    'search', //имя поля, передаваемого post  or get 
+                    '',
+                    [
+                        'placeholder'=>'Search...',
+                        'class'=>'form-control'
+                    ]);
+            echo'<span class="input-group-btn">';
+            echo Html::submitButton(
+                    '<span class="glyphicon glyphicon-search"></span>',
+                    [
+                        'class'=>'btn btn-success'
+                    ]
+            );
+            echo'</span></div>';
+            ActiveForm::end();
+            
+            /*
+             * меню по умолчанию
             echo Nav::widget([
                 'options' => ['class' => 'navbar-nav navbar-right'],
                 'items' => [
@@ -45,7 +76,41 @@ AppAsset::register($this);
                             'linkOptions' => ['data-method' => 'post']],
                 ],
             ]);
-            NavBar::end();
+             */
+            echo Nav::widget([
+                'items'=>[
+                    [
+                        'label'=>'Home <span class="glyphicon glyphicon-home"></span>', 'url'=>['main/index']
+                    ],
+                    '<li>
+                        <a data-toggle="modal" data-target="#modal" style="cursor:pointer">
+                        About <span class="glyphicon glyphicon-question-sign"></span>
+                    </li>'
+                    /*
+                     * не закрывается модальное окно
+                    [
+                        'label'=>'About <span class="glyphicon glyphicon-question-sign"></span>',
+                        'url'=>['#'],                        
+                        'linkOptions'=>[
+                            'data-toggle'=>'modal',
+                            'data-target'=>'#modal',
+                            'style'=>'cursor:pointer; outline:none;'
+                        ],
+                    ]
+                     */
+                ],
+                'encodeLabels'=>false,
+                'options'=>[
+                    'class'=>'navbar-nav navbar-right' 
+                ]
+            ]);
+            Modal::begin([
+                'header'=>'<h2>Content</h2>',
+                'id'=>'modal'
+            ]);
+            echo 'the project is for advanced developers';
+            Modal::end();
+            NavBar::end();             
         ?>
 
         <div class="container">
@@ -58,8 +123,8 @@ AppAsset::register($this);
 
     <footer class="footer">
         <div class="container">
-            <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
-            <p class="pull-right"><?= Yii::powered() ?></p>
+            <span class="glyphicon glyphicon-copyright-mark"> MyBlog <?= date('Y') ?></span>
+            
         </div>
     </footer>
 
