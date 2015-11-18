@@ -82,12 +82,24 @@ AppAsset::register($this);
                     [
                         'label'=>'Home <span class="glyphicon glyphicon-home"></span>', 'url'=>['main/index']
                     ],
+                    /*
+                     * не закрывается модальное окно
                     '<li>
                         <a data-toggle="modal" data-target="#modal" style="cursor:pointer">
                         About <span class="glyphicon glyphicon-question-sign"></span>
                     </li>'
-                    /*
-                     * не закрывается модальное окно
+                     * 
+                     */
+                    [
+                        'label'=>'From Box <span class="glyphicon glyphicon-inbox"></span>',
+                        'items'=>[
+                            '<li class="dropdown-headwr">Extensions</li>',
+                            '<li class="divider"></li>',
+                            [
+                                'label'=>'Go to the overview', 'url'=>['widget-test/index']
+                            ]
+                        ]
+                    ],
                     [
                         'label'=>'About <span class="glyphicon glyphicon-question-sign"></span>',
                         'url'=>['#'],                        
@@ -97,7 +109,7 @@ AppAsset::register($this);
                             'style'=>'cursor:pointer; outline:none;'
                         ],
                     ]
-                     */
+                     
                 ],
                 'encodeLabels'=>false,
                 'options'=>[
@@ -106,7 +118,9 @@ AppAsset::register($this);
             ]);
             Modal::begin([
                 'header'=>'<h2>Content</h2>',
-                'id'=>'modal'
+                'id'=>'modal',
+                //'toggleButton'=>['label'=>'Modal window about'],
+                'footer'=>'Down the window'
             ]);
             echo 'the project is for advanced developers';
             Modal::end();
