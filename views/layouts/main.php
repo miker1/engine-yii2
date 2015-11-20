@@ -36,30 +36,7 @@ AppAsset::register($this);
                 ],
             ]);
             
-            ActiveForm::begin(
-                    [
-                        'action'=>['main/search'],
-                        'method'=>'get',
-                        'options'=>['class'=>'navbar-form navbar-left']
-                    ]);
-            echo'<div class="input-group input-group-sm">'; //объединяем поле поиска и кнопку отправки
-            echo Html::input(
-                    'type: text',
-                    'search', //имя поля, передаваемого post  or get 
-                    '',
-                    [
-                        'placeholder'=>'Search...',
-                        'class'=>'form-control'
-                    ]);
-            echo'<span class="input-group-btn">';
-            echo Html::submitButton(
-                    '<span class="glyphicon glyphicon-search"></span>',
-                    [
-                        'class'=>'btn btn-success'
-                    ]
-            );
-            echo'</span></div>';
-            ActiveForm::end();
+            
             
             /*
              * меню по умолчанию
@@ -101,6 +78,14 @@ AppAsset::register($this);
                         ]
                     ],
                     [
+                        'label'=>'Registration',
+                        'url'=>['main/reg']
+                    ],
+                    [
+                        'label'=>'Go in',
+                        'url'=>['main/log']
+                    ],                    
+                    [
                         'label'=>'About <span class="glyphicon glyphicon-question-sign"></span>',
                         'url'=>['#'],                        
                         'linkOptions'=>[
@@ -124,6 +109,30 @@ AppAsset::register($this);
             ]);
             echo 'the project is for advanced developers';
             Modal::end();
+            ActiveForm::begin(
+                    [
+                        'action'=>['main/search'],
+                        'method'=>'get',
+                        'options'=>['class'=>'navbar-form navbar-right']
+                    ]);
+            echo'<div class="input-group input-group-sm">'; //объединяем поле поиска и кнопку отправки
+            echo Html::input(
+                    'type: text',
+                    'search', //имя поля, передаваемого post  or get 
+                    '',
+                    [
+                        'placeholder'=>'Search...',
+                        'class'=>'form-control'
+                    ]);
+            echo'<span class="input-group-btn">';
+            echo Html::submitButton(
+                    '<span class="glyphicon glyphicon-search"></span>',
+                    [
+                        'class'=>'btn btn-success'
+                    ]
+            );
+            echo'</span></div>';
+            ActiveForm::end();
             NavBar::end();             
         ?>
 

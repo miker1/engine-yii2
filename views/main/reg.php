@@ -13,10 +13,10 @@ use yii\widgets\ActiveForm;
 
         <?= $form->field($model, 'username') ?>
         <?= $form->field($model, 'email') ?>
-        <?= $form->field($model, 'password') ?>
+        <?= $form->field($model, 'password')->passwordInput() ?>
     
         <div class="form-group">
-            <?= Html::submitButton('Submit', ['class' => 'btn btn-primary']) ?>
+            <?= Html::submitButton('Registration', ['class' => 'btn btn-primary']) ?>
         </div>
     <?php ActiveForm::end(); ?>
 

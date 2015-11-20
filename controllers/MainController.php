@@ -25,13 +25,25 @@ class MainController extends \yii\web\Controller{
     
     public function actionLog(){
         $model=new LoginForm();        
+        if($model->load(Yii::$app->request->post())&&$model->login()):
+            return $this->goBack();
+        endif;
+        
         
         return $this->render('login',['model'=>$model]);
     }
     
     public function actionReg(){
         $model=new RegForm();        
-        
+        if($model->load(Yii::$app->request->post())&&$model->validate()):
+            if($model->reg()):
+                return $this->goHome();
+            else:
+                Yii::$app->session->setFlash('error','Error is while registration');
+                Yii::error('Error is while registration');
+                return $this->refresh();
+            endif;
+        endif;
         return $this->render('reg',['model'=>$model]);
     }
 }
