@@ -16,9 +16,10 @@ AppAsset::register($this);
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
 <head>
+    <?php echo Html::csrfMetaTags()?>
     <meta charset="<?= Yii::$app->charset ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <?= Html::csrfMetaTags() ?>
+    <?php echo Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
@@ -29,14 +30,57 @@ AppAsset::register($this);
         <?php
             NavBar::begin([
                 'brandLabel' => 'My Blog',
-                'brandUrl'=>['main/search'],
+                'brandUrl'=>['/main/search'],
                 //'brandUrl' => Yii::$app->homeUrl,
                 'options' => [
                     'class' => 'navbar-inverse navbar-fixed-top',
                 ],
             ]);
             
+            $menuItems=[
+                [
+                        'label'=>'Home <span class="glyphicon glyphicon-home"></span>', 'url'=>['/main/index']
+                    ],
+                    /*
+                     * не закрывается модальное окно
+                    '<li>
+                        <a data-toggle="modal" data-target="#modal" style="cursor:pointer">
+                        About <span class="glyphicon glyphicon-question-sign"></span>
+                    </li>'
+                     * 
+                     */
+                    [
+                        'label'=>'From Box <span class="glyphicon glyphicon-inbox"></span>',
+                        'items'=>[
+                            '<li class="dropdown-headwr">Extensions</li>',
+                            '<li class="divider"></li>',
+                            [
+                                'label'=>'Go to the overview', 'url'=>['/widget-test/index']
+                            ]
+                        ]
+                    ],
+                [
+                        'label'=>'About <span class="glyphicon glyphicon-question-sign"></span>',
+                        'url'=>['#'],                        
+                        'linkOptions'=>[
+                            'data-toggle'=>'modal',
+                            'data-target'=>'#modal',
+                            'style'=>'cursor:pointer; outline:none;'
+                        ],
+                    ]
+            ];
             
+            /*
+             * формируем элементы в навигационном меню по условию
+             */
+            if(Yii::$app->user->isGuest):
+                $menuItems[]=['label'=>'Registration','url'=>['/main/reg']];
+                $menuItems[]=['label'=>'Go in','url'=>['/main/log']];
+            else:
+                $menuItems[]=['label'=>'Out('.Yii::$app->user->identity['username'].')',
+                    'url'=>['/main/Logout'],
+                    'linkOptions'=>['data-method'=>'post']];
+            endif;
             
             /*
              * меню по умолчанию
@@ -55,47 +99,8 @@ AppAsset::register($this);
             ]);
              */
             echo Nav::widget([
-                'items'=>[
-                    [
-                        'label'=>'Home <span class="glyphicon glyphicon-home"></span>', 'url'=>['main/index']
-                    ],
-                    /*
-                     * не закрывается модальное окно
-                    '<li>
-                        <a data-toggle="modal" data-target="#modal" style="cursor:pointer">
-                        About <span class="glyphicon glyphicon-question-sign"></span>
-                    </li>'
-                     * 
-                     */
-                    [
-                        'label'=>'From Box <span class="glyphicon glyphicon-inbox"></span>',
-                        'items'=>[
-                            '<li class="dropdown-headwr">Extensions</li>',
-                            '<li class="divider"></li>',
-                            [
-                                'label'=>'Go to the overview', 'url'=>['widget-test/index']
-                            ]
-                        ]
-                    ],
-                    [
-                        'label'=>'Registration',
-                        'url'=>['main/reg']
-                    ],
-                    [
-                        'label'=>'Go in',
-                        'url'=>['main/log']
-                    ],                    
-                    [
-                        'label'=>'About <span class="glyphicon glyphicon-question-sign"></span>',
-                        'url'=>['#'],                        
-                        'linkOptions'=>[
-                            'data-toggle'=>'modal',
-                            'data-target'=>'#modal',
-                            'style'=>'cursor:pointer; outline:none;'
-                        ],
-                    ]
-                     
-                ],
+                'items'=>$menuItems,
+                'activateParents'=>true,
                 'encodeLabels'=>false,
                 'options'=>[
                     'class'=>'navbar-nav navbar-right' 

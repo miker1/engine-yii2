@@ -42,6 +42,12 @@ class RegForm extends Model{
      * Имитация записи в базу (пока так ...)
      */
     public function reg(){
-        return true;
+        $user=new User();
+        $user->username=$this->username;
+        $user->email=$this->email;
+        $user->status=$this->status;
+        $user->setPassword($this->password);
+        $user->generateAuthKey();
+        return $user->save()?$user:null;
     }
 }
