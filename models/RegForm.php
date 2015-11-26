@@ -9,12 +9,14 @@ class RegForm extends Model{
     public $username;
     public $email;
     public $password;
+    public $status;
     
     public function rules(){
         return [
             [['username','email','password'],'filter','filter'=>'trim'],
             [['username','email','password'],'required'],
             ['username','string','min'=>2,'max'=>255],
+            ['password','string','min'=>6,'max'=>255],
             ['username','unique','targetClass'=>User::className(),
                 'message'=>'This name exists already.'],
             ['email','email'],

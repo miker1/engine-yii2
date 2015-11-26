@@ -3,6 +3,8 @@
 namespace app\models;
 
 use Yii;
+use yii\web\IdentityInterface;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "user".
@@ -19,7 +21,7 @@ use Yii;
  *
  * @property Profile $profile
  */
-class User extends \yii\db\ActiveRecord
+class User extends \yii\db\ActiveRecord implements IdentityInterface
 {
     const STATUS_DELETED=0;
     const STATUS_NOT_ACTIVE=1;
@@ -76,5 +78,72 @@ class User extends \yii\db\ActiveRecord
     public function getProfile()
     {
         return $this->hasOne(Profile::className(), ['user_id' => 'id']);
+    }
+    
+    /*
+     * Behaviors
+     */
+    public function behaviours(){
+        [
+        TimestampBehavior::className()
+        ];
+    }
+    
+    /*
+     * find by userName
+     */
+    public static function findByUsername($username){
+        return static::findOne([
+            'username'=>$username
+        ]);
+    }
+
+    /*
+     * Helpers
+     */
+    public function setPassword($password){
+        $this->password_hash=Yii::$app->security->generatePasswordHash($password);
+    }
+    
+    /*
+     * генерация строки и присваивает ее полю <auth_key>
+     */
+    public function generateAuthKey(){
+        $this->auth_key=Yii::$app->security->generateRandomString();
+    }
+    
+    /*
+     * сравнение паролей
+     */
+    public function validatePassword($password){
+        return Yii::$app->security->validatePassword($password, $this->password_hash);
+    }
+    
+    /*
+     * Authentication users
+     */
+    public static function findIdentity($id)
+    {
+        return static::findOne(['id'=>$id,'status'=>self::STATUS_ACTIVE]);
+    }
+
+    public static function findIdentityByAccessToken($token, $type = null)
+    {
+        return static::findOne(['access_token' => $token]);
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getAuthKey()
+    {
+        return $this->auth_key;
+    }
+
+    public function validateAuthKey($authKey)
+    {
+        return $this->auth_key === $authKey;
     }
 }
