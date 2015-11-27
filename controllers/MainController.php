@@ -6,14 +6,18 @@ use app\models\LoginForm;
 use app\models\RegForm;
 use app\models\User;
 
-class MainController extends \yii\web\Controller{
+class MainController extends BehaviorsController{
     
     public $layout='main';//change the main of a project pattern 
     
     /*
      * изменение действия по умолчанию вместо <index> будет <search>
      */
-    public $defaultAction='search';
+    //public $defaultAction='search';
+    
+    public function actionIndex(){
+        return $this->render('index');
+    }
     
     /*
      * метод <GET> передается в контроллер автоматически
@@ -24,15 +28,22 @@ class MainController extends \yii\web\Controller{
     }
     
     /*
-     * 6:00 http://www.youtube.com/watch?v=pKq_iiAL_dA&index=14&list=PLqhDXdp6EGpGrW2HzEVIzBDzFSCwX8eup
+     * Creating an action by Logout
      */
-    
+    public function actionLogout(){
+        Yii::$app->user->logout();
+        return $this->redirect(['/main/log']);
+    }
     
     
     public function actionLog(){
+        if(!Yii::$app->user->isGuest):
+            return $this->goHome();
+        endif;
         $model=new LoginForm();        
         if($model->load(Yii::$app->request->post())&&$model->login()):
-            return $this->goBack();
+            //return $this->goBack();
+            return $this->redirect(['/main/index']);
         endif;
         return $this->render('login',['model'=>$model]);
     }
@@ -43,7 +54,8 @@ class MainController extends \yii\web\Controller{
             if($user=$model->reg()):
                 if($user->status===User::STATUS_ACTIVE):
                     if(Yii::$app->getUser()->login($user)):
-                        return $this->goHome();
+                        //return $this->goHome();
+                        return $this->redirect(['/main/index']);
                     endif;
                 endif;
             else:

@@ -6,6 +6,10 @@ $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+    'layout'=>'main',
+    'defaultRoute'=>'main/index',
+    'language'=>'ru_RU',
+    'charset'=>'UTF-8',
     /*
      * add modules
      */
@@ -25,6 +29,7 @@ $config = [
         'user' => [
             'identityClass' => 'app\models\User',
             'enableAutoLogin' => true,
+            'loginUrl'=>['main/index']//переопределяем действие входа
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',

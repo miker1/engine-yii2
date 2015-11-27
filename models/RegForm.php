@@ -39,7 +39,7 @@ class RegForm extends Model{
     }
     
     /*
-     * Имитация записи в базу (пока так ...)
+     * Запись в базу
      */
     public function reg(){
         $user=new User();

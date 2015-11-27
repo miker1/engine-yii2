@@ -30,7 +30,7 @@ AppAsset::register($this);
         <?php
             NavBar::begin([
                 'brandLabel' => 'My Blog',
-                'brandUrl'=>['/main/search'],
+                'brandUrl'=>['/main/index'],
                 //'brandUrl' => Yii::$app->homeUrl,
                 'options' => [
                     'class' => 'navbar-inverse navbar-fixed-top',
@@ -77,8 +77,8 @@ AppAsset::register($this);
                 $menuItems[]=['label'=>'Registration','url'=>['/main/reg']];
                 $menuItems[]=['label'=>'Go in','url'=>['/main/log']];
             else:
-                $menuItems[]=['label'=>'Out('.Yii::$app->user->identity['username'].')',
-                    'url'=>['/main/Logout'],
+                $menuItems[]=['label'=>'LogOut('.Yii::$app->user->identity['username'].')',
+                    'url'=>['/main/logout'],
                     'linkOptions'=>['data-method'=>'post']];
             endif;
             
