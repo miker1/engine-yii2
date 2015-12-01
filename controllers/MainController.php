@@ -5,6 +5,7 @@ use Yii;
 use app\models\LoginForm;
 use app\models\RegForm;
 use app\models\User;
+use app\models\Profile;
 
 class MainController extends BehaviorsController{
     
@@ -42,8 +43,8 @@ class MainController extends BehaviorsController{
         endif;
         $model=new LoginForm();        
         if($model->load(Yii::$app->request->post())&&$model->login()):
-            //return $this->goBack();
-            return $this->redirect(['/main/index']);
+            return $this->goBack();
+            //return $this->redirect(['/main/index']);
         endif;
         return $this->render('login',['model'=>$model]);
     }
@@ -54,8 +55,8 @@ class MainController extends BehaviorsController{
             if($user=$model->reg()):
                 if($user->status===User::STATUS_ACTIVE):
                     if(Yii::$app->getUser()->login($user)):
-                        //return $this->goHome();
-                        return $this->redirect(['/main/index']);
+                        return $this->goHome();
+                        //return $this->redirect(['/main/index']);
                     endif;
                 endif;
             else:
@@ -65,5 +66,19 @@ class MainController extends BehaviorsController{
             endif;
         endif;
         return $this->render('reg',['model'=>$model]);
+    }
+    
+    public function actionProfile(){
+        $model=($model=Profile::findOne(Yii::$app->user->id)) ? $model : new Profile;
+        if($model->load(Yii::$app->request->post()) && $model->validate()) :
+            if($model->updateProfile()):
+                Yii::$app->session->setFlash('success','Your profile was changed');
+            else:
+                Yii::$app->session->setFlash('error','Your profile was not changed');
+                Yii::error('Error recording');
+            return $this->refresh();
+            endif;
+        endif;
+    return $this->render('profile', ['model' => $model,]);
     }
 }

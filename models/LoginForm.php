@@ -18,13 +18,12 @@ class LoginForm extends Model{
         return [
           [['username','password'],'required','on'=>'default'],
           ['email','email'],
-            ['rememberMe','boolean'],
-            ['password','validatePassword']
+          ['rememberMe','boolean'],
+          ['password','validatePassword']
         ];
     }
     
     public function validatePassword($attribute){
-        
         if(!$this->hasErrors()):
             $user=$this->getUser();
             if(!$user||!$user->validatePassword($this->password)):

@@ -61,17 +61,17 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return [
             'id' => 'ID',
-            'username' => 'Username',
+            'username' => 'Nick',
             'email' => 'Email',
             'password' => 'Password Hash',
             'status' => 'Status',
             'auth_key' => 'Auth Key',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'created_at' => 'was created',
+            'updated_at' => 'was update',
             'secret_key' => 'Secret Key',
         ];
     }
-
+    
     /**
      * @return \yii\db\ActiveQuery
      */

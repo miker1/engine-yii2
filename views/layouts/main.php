@@ -77,6 +77,9 @@ AppAsset::register($this);
                 $menuItems[]=['label'=>'Registration','url'=>['/main/reg']];
                 $menuItems[]=['label'=>'Go in','url'=>['/main/log']];
             else:
+                $menuItems[]=['label'=>'Profile',
+                    'url'=>['/main/profile'],
+                    'linkOptions'=>['data-method'=>'post']];
                 $menuItems[]=['label'=>'LogOut('.Yii::$app->user->identity['username'].')',
                     'url'=>['/main/logout'],
                     'linkOptions'=>['data-method'=>'post']];

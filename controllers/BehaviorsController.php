@@ -27,6 +27,13 @@ class BehaviorsController extends Controller{
                         'roles'=>['?']//доступ пользователям (? - метка гостя)
                     ],
                     [
+                        'allow'=>true,//правило "разрешить для profile"
+                        'controllers'=>['main'],//для контроллера <main>
+                        'actions'=>['profile'],//для действий
+                        'verbs'=>['GET','POST'],//и для запросов
+                        'roles'=>['@']//доступ пользователям (@ - метка идентифицированного пользователя)
+                    ],
+                    [
                         'allow'=>true,//правило для выхода пользователя
                         'controllers'=>['main'],
                         'actions'=>['logout'],
