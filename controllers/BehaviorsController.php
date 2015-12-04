@@ -51,7 +51,12 @@ class BehaviorsController extends Controller{
                         'actions'=>['index'],
                         /*
                         'ips'=>['127.0.0.1'],//['127.1.*'] диапазон адресов
-                        'matchCallback'=>function($rule,$action){
+                        
+                         * если функция возвратит tru - действие доступно, если false - нет.
+                         * @var $rule текущее правило
+                         * @var $action текущее действие
+                         * 
+                         * 'matchCallback'=>function($rule,$action){
                             return date('d-m')==='27-11';//true - если сегодня 27.11 или сделать !==
                         }
                         */

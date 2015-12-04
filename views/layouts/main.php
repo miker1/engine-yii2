@@ -119,7 +119,7 @@ AppAsset::register($this);
             Modal::end();
             ActiveForm::begin(
                     [
-                        'action'=>['main/search'],
+                        'action'=>['/search'],
                         'method'=>'get',
                         'options'=>['class'=>'navbar-form navbar-right']
                     ]);
@@ -136,7 +136,8 @@ AppAsset::register($this);
             echo Html::submitButton(
                     '<span class="glyphicon glyphicon-search"></span>',
                     [
-                        'class'=>'btn btn-success'
+                        'class'=>'btn btn-success',
+                        'onClick'=>'window.location.href=this.form.action+"-"+this.form.search.value.replace(/[^\w\а-яё\А-ЯЁ]+/g,"_")+".php";'
                     ]
             );
             echo'</span></div>';

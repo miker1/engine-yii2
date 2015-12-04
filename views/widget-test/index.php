@@ -1,6 +1,23 @@
 <?php
+use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\bootstrap\Modal;
-/* @var $this yii\web\View */
+echo Html::a('to give id=123',Url::to(['widget-test/index','id'=>'123']));
+if(isset($_GET['id']))
+    echo'<p>'.$_GET['id'].'</p>';
+echo'<br>';
+echo Html::a('Search articles from 2015 year',
+        Url::to([
+            'main/search',//маршрут
+            'search'=>'article',//первая переменная
+            'year'=>'2015'//вторая переменная
+        ])
+    );
+/*
+ *модальное окно
+ */ 
+echo'<br>';
+// @var $this yii\web\View
 Modal::begin([
     'size'=>'modal-sm',
     'header'=>'<h2>Title</h2>',

@@ -44,12 +44,58 @@ $config = [
             'showScriptName'=>false,
             //Disable r= routes
             'enablePrettyUrl'=>true,
+            /*если маршрут не найден, сразу выдает 404 без перехода по маршруту(что-то глючит)
+             *'enableStrictParsing'=>true,
+             *в правилах необходимо указать все возможные маршруты (если true) 
+            */
+            'rules'=>[
+                [
+                  'pattern'=>'',
+                  'route'=>'main/index',
+                  'suffix'=>''
+                ],
+                [
+                  'pattern'=>'search-<search:\w*>-<year:\d{4}>',
+                  'route'=>'main/search',
+                  'suffix'=>'.php'
+                ],
+                [
+                  'pattern'=>'search-<search:\w*>',
+                  'route'=>'main/search',
+                  'suffix'=>'.php'
+                ],
+                [
+                  'pattern'=>'<controller>/<action>/<id:\d+>',
+                  'route'=>'<controller>/<action>',
+                  'suffix'=>''
+                ],
+                [
+                  'pattern'=>'<controller>/<action>',
+                  'route'=>'<controller>/<action>',
+                  'suffix'=>'.php'
+                ],
+                [
+                  'pattern'=>'<module>/<controller>/<action>/<id:\d+>',
+                  'route'=>'<module>/<controller>/<action>',
+                  'suffix'=>'.php'
+                ],
+                [
+                  'pattern'=>'<module>/<controller>/<action>',
+                  'route'=>'<module>/<controller>/<action>',
+                  'suffix'=>'.php'
+                ],
+            ]
+            
+            
+            /*
+             * рабочий код, обеспечивающий весь функционал приложения
             'rules'=>array(
                 '<controller:\w+>/<id:\d+>'=>'<controller>/view',
                 '<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
                 '<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
                 '<module:[\wd-]+>/<controller:[\wd-]+>/<action:[\wd-]+>/<id:\d+>' => '<module>/<controller>/<action>',
             ),
+             */
             
         ],
         'mailer' => [
