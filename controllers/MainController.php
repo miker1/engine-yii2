@@ -23,7 +23,14 @@ class MainController extends BehaviorsController{
     /*
      * метод <GET> передается в контроллер автоматически
      */
-    public function actionSearch($search=null){
+    public function actionSearch(){
+        $search=Yii::$app->session->get('search');
+        Yii::$app->session->remove('search');
+        if($search):
+            Yii::$app->session->setFlash('success', 'Result of search');
+        else:
+            Yii::$app->session->setFlash('error', 'The form of search was not filled');
+        endif;
         //$search=Yii::$app->request->post('search');
         return $this->render('search',['search'=>$search]);
     }

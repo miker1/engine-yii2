@@ -4,6 +4,7 @@ namespace app\controllers;
 use Yii;
 use yii\web\Controller; //основной класс контроллеров
 use yii\filters\AccessControl;
+use app\components\MyBehaviors;
 
 class BehaviorsController extends Controller{
     
@@ -52,7 +53,7 @@ class BehaviorsController extends Controller{
                         /*
                         'ips'=>['127.0.0.1'],//['127.1.*'] диапазон адресов
                         
-                         * если функция возвратит tru - действие доступно, если false - нет.
+                         * если функция возвратит true - действие доступно, если false - нет.
                          * @var $rule текущее правило
                          * @var $action текущее действие
                          * 
@@ -60,9 +61,15 @@ class BehaviorsController extends Controller{
                             return date('d-m')==='27-11';//true - если сегодня 27.11 или сделать !==
                         }
                         */
-                    ]
+                    ],
                     
                 ]
+            ],
+            'removeUnderscore'=>[
+                'class'=>MyBehaviors::className(),//класс поведения
+                'controller'=>Yii::$app->controller->id,
+                'action'=>Yii::$app->controller->action->id,
+                'removeUnderscore'=>Yii::$app->request->get('search')
             ]
         ];
     }
