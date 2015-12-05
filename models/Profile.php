@@ -68,11 +68,17 @@ class Profile extends \yii\db\ActiveRecord
      * вызывается из действия Profile контроллера Main
      */
     public function updateProfile(){
-        $profile=($profile=Profile::findOne(Yii::$app->user->id)) ? $profile: new Profile();
+        $profile=($profile=Profile::findOne(Yii::$app->user->id)) ? $profile : new Profile();
         $profile->user_id=Yii::$app->user->id;
         $profile->first_name=$this->first_name;
         $profile->second_name=$this->second_name;
         $profile->middle_name=$this->middle_name;
-        return $profile->save() ? true : false;
+        if($profile->save()):
+            $user=$this->user ? $this->user : User::findOne(Yii::$app->user->id);
+            $username=Yii::$app->request->post('User')['username'];
+            $user->username=isset($username) ? $username : $user->username;
+            return $user->save() ? true : false;
+        endif;
+        return false;
     }
 }

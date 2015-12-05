@@ -65,11 +65,11 @@ class BehaviorsController extends Controller{
                     
                 ]
             ],
-            'removeUnderscore'=>[
+            'removeUnderscore'=>[//имя поведения
                 'class'=>MyBehaviors::className(),//класс поведения
-                'controller'=>Yii::$app->controller->id,
-                'action'=>Yii::$app->controller->action->id,
-                'removeUnderscore'=>Yii::$app->request->get('search')
+                'controller'=>Yii::$app->controller->id,//текущий контроллер
+                'action'=>Yii::$app->controller->action->id,//текущее действие
+                'removeUnderscore'=>Yii::$app->request->get('search')//в сеттер setRemoveUnderscore отправляется переменная search из $_GET
             ]
         ];
     }

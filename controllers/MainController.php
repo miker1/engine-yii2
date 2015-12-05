@@ -27,7 +27,7 @@ class MainController extends BehaviorsController{
         $search=Yii::$app->session->get('search');
         Yii::$app->session->remove('search');
         if($search):
-            Yii::$app->session->setFlash('success', 'Result of search');
+            Yii::$app->session->setFlash('success', 'Result of search');            
         else:
             Yii::$app->session->setFlash('error', 'The form of search was not filled');
         endif;
