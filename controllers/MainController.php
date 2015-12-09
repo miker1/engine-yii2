@@ -9,7 +9,8 @@ use app\models\Profile;
 
 class MainController extends BehaviorsController{
     
-    public $layout='main';//change the main of a project pattern 
+    public $layout='basic';
+    //public $layout='main';//change the main of a project pattern 
     
     /*
      * изменение действия по умолчанию вместо <index> будет <search>
