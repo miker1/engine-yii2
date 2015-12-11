@@ -9,8 +9,8 @@ use app\models\Profile;
 
 class MainController extends BehaviorsController{
     
-    public $layout='basic';
-    //public $layout='main';//change the main of a project pattern 
+    //public $layout='basic';
+    public $layout='main';//change the main of a project pattern 
     
     /*
      * изменение действия по умолчанию вместо <index> будет <search>
@@ -18,6 +18,7 @@ class MainController extends BehaviorsController{
     //public $defaultAction='search';
     
     public function actionIndex(){
+        //Yii::$app->view->params['breadcrumbs'][] = 'Index';//лучше указать в представлении
         return $this->render('index');
     }
     
@@ -25,6 +26,7 @@ class MainController extends BehaviorsController{
      * метод <GET> передается в контроллер автоматически
      */
     public function actionSearch(){
+        //Yii::$app->view->params['breadcrumbs'][] = 'Search';
         $search=Yii::$app->session->get('search');
         Yii::$app->session->remove('search');
         if($search):

@@ -29,11 +29,23 @@ AppAsset::register($this);
     <div class="wrap">
         <?php
             NavBar::begin([
-                'brandLabel' => 'My Blog',
+                //'brandLabel' => 'My Blog',// false - скрыть название
+                'brandLabel'=>'<img src="'.\Yii::$app->request->baseUrl.'/web/img/brand.png"/>',
+                //'brandLabel'=>'<img src="/web/img/brand.png"/>',
+                'renderInnerContainer'=>true,//меню помещено в контейнер
+                'innerContainerOptions'=>[
+                    'class'=>'container'/*container-fluid растянуть на весь экран*/
+                ],
                 'brandUrl'=>['/main/index'],
                 //'brandUrl' => Yii::$app->homeUrl,
+                'brandOptions'=>[
+                    'class'=>'navbar-brand'
+                ],
                 'options' => [
-                    'class' => 'navbar-inverse navbar-fixed-top',
+                    //'class' => 'navbar navbar-inverse',
+                    //'class' => 'navbar navbar-inverse navbar-fixed-top',
+                    'class' => 'navbar',
+                    'id'=>'main-menu'/*id from main.css (AppAsset)*/
                 ],
             ]);
             
@@ -144,10 +156,10 @@ AppAsset::register($this);
             ActiveForm::end();
             NavBar::end();             
         ?>
-
         <div class="container">
-            <?= Breadcrumbs::widget([
+           <?= Breadcrumbs::widget([
                 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+                'homeLink'=>false
             ]) ?>
             <?= $content ?>
         </div>
@@ -155,6 +167,7 @@ AppAsset::register($this);
 
     <footer class="footer">
         <div class="container">
+            
             <span class="glyphicon glyphicon-copyright-mark"> MyBlog <?= date('Y') ?></span>
             
         </div>
