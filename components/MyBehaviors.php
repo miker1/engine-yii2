@@ -5,6 +5,10 @@ use yii\base\Behavior;
 use yii\web\Controller;
 
 class MyBehaviors extends Behavior{
+    /**
+     * поведение, которое перед действием Search контроллера Main
+     * будет заменять все знаки почеркивания на пробелы
+     */
     
     private $_controller;
     private $_action;
@@ -39,6 +43,9 @@ class MyBehaviors extends Behavior{
      * yii\base\Behavior events()
      * перед любым действием Controller::EVENT_BEFORE_ACTION
      * вызывать метод beforeAction()
+     * можно проверить:
+     * ActiveRecord::EVENT_BEFORE_INSERT,[$this,'nameMethod'] - не работает
+     * Controller::EVENT_BEFORE_ACTION=>'beforeAction'
      */
     public function events(){
         return[

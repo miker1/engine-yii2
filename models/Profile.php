@@ -57,6 +57,9 @@ class Profile extends \yii\db\ActiveRecord
 
     /**
      * @return \yii\db\ActiveQuery
+     * 
+     * Геттер, который получает объект из модели User, поле id в которой,
+     * совпадает с полем user_id в модели Profilr - называется связью.
      */
     public function getUser()
     {

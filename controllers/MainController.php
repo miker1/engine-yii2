@@ -24,10 +24,14 @@ class MainController extends BehaviorsController{
     
     /*
      * метод <GET> передается в контроллер автоматически
+     * 
+     * MyBehaviors из контроллера Behaviors запускается перед каждым действием приложения.
+     * В поведении происходит проверка, если запущено действие Search контроллера Main,
+     * меняються символы подчеркивания на пробелы
      */
     public function actionSearch(){
         //Yii::$app->view->params['breadcrumbs'][] = 'Search';
-        $search=Yii::$app->session->get('search');
+        $search=Yii::$app->session->get('search');//забирает из сессии уже измененный с помощью event(а) запрос. Работа поведения.
         Yii::$app->session->remove('search');
         if($search):
             Yii::$app->session->setFlash('success', 'Result of search');            

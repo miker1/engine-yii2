@@ -11,6 +11,7 @@ class BehaviorsController extends Controller{
     public function behaviors() {
         return[
             'access'=>[
+                //альтернативное задание пути 'app\components\FileBehavior'
                 'class'=>  AccessControl::className(),//класс поведения - фильтр контроля доступа
                 /*
                  * Вывод исключения при отказе доступа

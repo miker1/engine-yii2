@@ -3,11 +3,12 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\bootstrap\Modal;
 use yii\bootstrap\Nav;
+use yii\bootstrap\ActiveForm;
 
 echo Nav::widget([
     
         /*
-         * передача HTML атрибутов всему мену через options
+         * передача HTML атрибутов всему меню через options
          * если в навигационной панели - основной класс navbar
          * если не в навигационной панели - nav
          * если в виде вкладок - nav-tabs
@@ -70,17 +71,58 @@ echo Html::a('Search articles from 2015 year',
  */ 
 echo'<br>';
 // @var $this yii\web\View
+echo Html::a(
+        'Modal window',
+        ['#'],//маршрут
+        [
+            'data-toggle'=>'modal',//модальное окно
+            'data-target'=>'#search',//id окна, которое нужно открыть
+            'class'=>'btn btn-warning'//стиль bootstrap
+        ]
+);
 Modal::begin([
-    'size'=>'modal-sm',
+    'options'=>[//задает id для тега '<a>'
+        'id'=>'search'
+    ],
+    'size'=>'modal-sm',/*modal-lg*/
     'header'=>'<h2>Title</h2>',
-    'toggleButton'=>[
+    /*
+     * Так можно вынести кнопку за пределы модального окна
+     * по ссылке '<a>'
+    'toggleButton'=>[/*при нажатии на кнопку появляется модальное окно
         'label'=>'Modal window',
         'tag'=>'button',
         'class'=>'btn btn-danger'
         ],
+    */
     'footer'=>'Down the window'
 ]);
 echo 'the project is for advanced developers';
+            ActiveForm::begin(
+                    [
+                        'action'=>['/search'],
+                        'method'=>'get',
+                        'options'=>['class'=>'']
+                    ]);
+            echo'<div class="input-group input-group-sm">'; //объединяем поле поиска и кнопку отправки
+            echo Html::input(
+                    'type: text',
+                    'search', //имя поля, передаваемого post  or get 
+                    '',
+                    [
+                        'placeholder'=>'Search...',
+                        'class'=>'form-control'
+                    ]);
+            echo'<span class="input-group-btn">';
+            echo Html::submitButton(
+                    '<span class="glyphicon glyphicon-search"></span>',
+                    [
+                        'class'=>'btn btn-success',
+                        'onClick'=>'window.location.href=this.form.action+"-"+this.form.search.value.replace(/[^\w\а-яё\А-ЯЁ]+/g,"_")+".php";'
+                    ]
+            );
+            echo'</span></div>';
+            ActiveForm::end();
 Modal::end();
 ?>
 <!--

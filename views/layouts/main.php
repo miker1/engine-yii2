@@ -1,5 +1,6 @@
 <?php
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\bootstrap\Nav;
 use yii\bootstrap\Modal;
 use yii\bootstrap\NavBar;
@@ -49,6 +50,32 @@ AppAsset::register($this);
                 ],
             ]);
             
+            if(!Yii::$app->user->isGuest):
+                ?>
+        <!--
+        Html для всплывающего блока и кнопки logout
+        -->
+        <div class="navbar-form navbar-right">
+            <!--
+            Кнопка с всплывающим блоком
+            -->
+            <button type="button"
+                class="btn btn-sm btn-default"
+                data-container="body"
+                data-toggle="popover"
+                data-trigger="focus"
+                data-placement="bottom"
+                data-title="<?= Yii::$app->user->identity['username']?>"
+                data-content="
+                <a href='<?= Url::to(['/main/logout'])?>' data-method='post'>LogOut</a>
+                ">
+                <span class="glyphicon glyphicon-user"></span>
+            </button>
+        </div>
+        <?php
+        
+            endif;
+            
             $menuItems=[
                 [
                         'label'=>'Home <span class="glyphicon glyphicon-home"></span>', 'url'=>['/main/index']
@@ -92,9 +119,12 @@ AppAsset::register($this);
                 $menuItems[]=['label'=>'Profile',
                     'url'=>['/main/profile'],
                     'linkOptions'=>['data-method'=>'post']];
+            /*
+             * заменено на всплывающий блок и иконку
                 $menuItems[]=['label'=>'LogOut('.Yii::$app->user->identity['username'].')',
                     'url'=>['/main/logout'],
                     'linkOptions'=>['data-method'=>'post']];
+                */
             endif;
             
             /*
@@ -158,6 +188,9 @@ AppAsset::register($this);
         ?>
         <div class="container">
            <?= Breadcrumbs::widget([
+                'options'=>[
+                    'class'=>'breadcrumb'
+                ],
                 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
                 'homeLink'=>false
             ]) ?>
@@ -171,6 +204,45 @@ AppAsset::register($this);
             <span class="glyphicon glyphicon-copyright-mark"> MyBlog <?= date('Y') ?></span>
             
         </div>
+        <div class="container">
+            <script>
+                days = new Array(
+"Воскресенье","Понедельник","Вторник","Среда","Четверг","Пятница","Суббота"
+);
+months = new Array(
+"Январь","Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"
+);
+
+function renderDate(){
+	var mydate = new Date();
+	var year = mydate.getYear();
+	if (year < 2000) {
+		if (document.all)
+			year = "19" + year;
+		else
+			year += 1900;
+	}
+	var day = mydate.getDay();
+	var month = mydate.getMonth();
+	var daym = mydate.getDate();
+	if (daym < 10)
+		daym = "0" + daym;
+	var hours = mydate.getHours();
+	var minutes = mydate.getMinutes();
+	var dn = "AM";
+	if (hours >= 12) {
+		dn = "PM";
+		hours = hours - 12;
+	}
+	if (hours == 0)
+		hours = 12;
+	if (minutes <= 9)
+		minutes = "0" + minutes;
+	document.writeln("<FONT COLOR=\"#000000\" FACE=\"Verdana,arial,helvetica,sans serif\" size=\"1\"><B> ",days[day]," ",daym," ",months[month]," ",year,"</B> | ",hours,":",minutes," ",dn,"</FONT><BR>");
+}
+renderDate();
+            </script>
+        </container>
     </footer>
 
 <?php $this->endBody() ?>
