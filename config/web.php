@@ -12,10 +12,14 @@ $config = [
     'charset'=>'UTF-8',
     /*
      * add modules
+     * мой блог, подключение модуля
      */
     'modules' => [
         'admin' => [
             'class' => 'app\modules\admin\Module',
+        ],
+        'blog' => [
+            'class' => 'app\modules\blog\Module',
         ],
     ],
     'components' => [
