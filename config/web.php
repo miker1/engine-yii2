@@ -36,7 +36,8 @@ $config = [
             'loginUrl'=>['main/index']//переопределяем действие входа
         ],
         'errorHandler' => [
-            'errorAction' => 'site/error',
+            //'site/error'
+            'errorAction' =>'main/error',
         ],
         
         /*

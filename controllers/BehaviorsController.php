@@ -45,7 +45,7 @@ class BehaviorsController extends Controller{
                     [
                         'allow'=>true,//для всех котроллеров, без доп. условий
                         'controllers'=>['main'],
-                        'actions'=>['index','search']
+                        'actions'=>['index','search','error']
                     ],
                     [
                         'allow'=>true,//правило "разрешить"

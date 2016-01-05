@@ -17,6 +17,16 @@ class MainController extends BehaviorsController{
      */
     //public $defaultAction='search';
     
+    /**
+     * 
+     * public function actions(){
+        return [
+            'error' => [
+                'class' => 'yii\web\ErrorAction',
+            ],
+        ];
+    }
+    */
     public function actionIndex(){
         //Yii::$app->view->params['breadcrumbs'][] = 'Index';//лучше указать в представлении
         return $this->render('index');
@@ -95,4 +105,12 @@ class MainController extends BehaviorsController{
         endif;
     return $this->render('profile', ['model' => $model,]);
     }
+    
+    public function actionError(){
+        $exception = \Yii::$app->errorHandler->exception;
+        if ($exception !== null) {
+            return $this->render('error', ['exception' => $exception]);
+        }
+    }
+    
 }

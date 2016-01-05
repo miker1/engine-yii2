@@ -30,10 +30,10 @@ class DefaultController extends Controller
              */
             'access'=>[
                 'class'=>  AccessControl::className(),
-                'only'=>['create','update','delete'],
+                'only'=>['index','view','create','update','delete'],
                 'rules'=>[
                     [
-                        'actions'=>['create','update','delete'],
+                        'actions'=>['index','view','create','update','delete'],
                         'allow'=>true,
                         'roles'=>['@'],
                     ],

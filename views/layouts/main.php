@@ -30,12 +30,15 @@ AppAsset::register($this);
     <div class="wrap">
         <?php
             NavBar::begin([
+                
                 //'brandLabel' => 'My Blog',// false - скрыть название
                 'brandLabel'=>'<img src="'.\Yii::$app->request->baseUrl.'/web/img/brand.png"/>',
                 //'brandLabel'=>'<img src="/web/img/brand.png"/>',
                 'renderInnerContainer'=>true,//меню помещено в контейнер
                 'innerContainerOptions'=>[
-                    'class'=>'container'/*container-fluid растянуть на весь экран*/
+                    'class'=>'container',
+                    
+                    /*container-fluid растянуть на весь экран*/
                 ],
                 'brandUrl'=>['/main/index'],
                 //'brandUrl' => Yii::$app->homeUrl,
@@ -43,9 +46,12 @@ AppAsset::register($this);
                     'class'=>'navbar-brand'
                 ],
                 'options' => [
+                    
                     //'class' => 'navbar navbar-inverse',
                     //'class' => 'navbar navbar-inverse navbar-fixed-top',
                     'class' => 'navbar',
+                    //'class' => 'navbar navbar-default navbar-fixed-top',
+                    //'class'=>'navbar navbar-justified navbar-fixed-top',
                     'id'=>'main-menu'/*id from main.css (AppAsset)*/
                 ],
             ]);
@@ -67,7 +73,9 @@ AppAsset::register($this);
                 data-placement="bottom"
                 data-title="<?= Yii::$app->user->identity['username']?>"
                 data-content="
+                <a href='<?= Url::to(['/main/profile'])?>' data-method='post'>Profile</a><br>
                 <a href='<?= Url::to(['/main/logout'])?>' data-method='post'>LogOut</a>
+               
                 ">
                 <span class="glyphicon glyphicon-user"></span>
             </button>
@@ -115,11 +123,18 @@ AppAsset::register($this);
             if(Yii::$app->user->isGuest):
                 $menuItems[]=['label'=>'Registration','url'=>['/main/reg']];
                 $menuItems[]=['label'=>'Go in','url'=>['/main/log']];
+                
+            else:
+                $menuItems[]=['label'=>'Blog',
+                    'url'=>['/blog'],
+                    'linkOptions'=>['data-method'=>'post']];
+             /**
+              * перенесено в кнопку пользователя - всплывающий блок   
             else:
                 $menuItems[]=['label'=>'Profile',
                     'url'=>['/main/profile'],
                     'linkOptions'=>['data-method'=>'post']];
-            /*
+            *
              * заменено на всплывающий блок и иконку
                 $menuItems[]=['label'=>'LogOut('.Yii::$app->user->identity['username'].')',
                     'url'=>['/main/logout'],
