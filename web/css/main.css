@@ -15,7 +15,7 @@ and open the template in the editor.
     font-size: 14px;
     background-color: rgba(51, 122, 183, 1);
     border-width: 0px;
-    border-radius: 0px;
+    border-radius: 5px;
 }
 #main-menu.navbar-default .navbar-nav>li>a {
     color: rgba(255, 255, 255, 1);

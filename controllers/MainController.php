@@ -56,7 +56,8 @@ class MainController extends BehaviorsController{
      * Creating an action by Logout
      */
     public function actionLogout(){
-        Yii::$app->user->logout();
+        Yii::$app->user->logout();/**если Logout(false) - сессии не уничтожаются*/
+        //return $this->goHome();
         return $this->redirect(['/main/log']);
     }
     

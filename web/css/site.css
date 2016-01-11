@@ -13,9 +13,14 @@ img{
     height: auto;
     margin: 0 auto -60px;
     padding: 0 0 60px;
+     max-width: 1200px;
 }
 
 .wrap > .container {
+    
+        max-width: 1200px;
+    
+
     padding: 70px 15px 20px;
 }
 

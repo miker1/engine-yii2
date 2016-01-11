@@ -30,6 +30,8 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="panel-heading"><?=$model->title?></div>
         <div class="panel-body">
             <?=Html::decode($model->text)?>
+            <?='You name is: '.Html::decode(Yii::$app->user->identity->username)?>
+            <?='You ID is: '.Html::decode(Yii::$app->user->id)?>
         </div>
     </div>
     

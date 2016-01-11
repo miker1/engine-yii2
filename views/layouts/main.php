@@ -49,9 +49,11 @@ AppAsset::register($this);
                     
                     //'class' => 'navbar navbar-inverse',
                     //'class' => 'navbar navbar-inverse navbar-fixed-top',
-                    'class' => 'navbar',
-                    //'class' => 'navbar navbar-default navbar-fixed-top',
-                    //'class'=>'navbar navbar-justified navbar-fixed-top',
+                    'class' => 'navbar navbar-default',
+                    /**
+                     * Не работает в меню всплывающее окно About
+                     * 'class' => 'navbar navbar-default navbar-fixed-top',
+                     */
                     'id'=>'main-menu'/*id from main.css (AppAsset)*/
                 ],
             ]);
