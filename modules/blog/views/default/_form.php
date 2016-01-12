@@ -11,7 +11,20 @@ use dosamigos\ckeditor\CKEditor;
 
 <div class="posts-form">
 
-    <?php $form = ActiveForm::begin(['options'=>['enctype'=>'multipart/form-data']]); ?>
+    <?php 
+    /**
+     * create 12.01.2016 ImageUploadBehavior
+     
+    $form =ActiveForm::begin([
+        'enableClientValidation' => false,
+        'options' => [
+            'enctype' => 'multipart/form-data',
+        ],
+    ]);
+    */
+    
+    $form = ActiveForm::begin(['options'=>['enctype'=>'multipart/form-data']]); 
+    ?>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 

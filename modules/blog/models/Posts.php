@@ -20,7 +20,26 @@ class Posts extends \yii\db\ActiveRecord
     public $filename;
     public $string;
     
-        
+    /**
+     * create 12.01.2016 ImageUploadBehavior
+     
+    public function behaviors()
+    {
+        return [
+                [
+                'class' => '\yiidreamteam\upload\ImageUploadBehavior',
+                'attribute' => 'imageUpload',
+                'thumbs' => [
+                    'thumb' => ['width' => 400, 'height' => 300],
+                ],
+                'filePath' => '@webroot/images/[[pk]].[[extension]]',
+                'fileUrl' => '/images/[[pk]].[[extension]]',
+                'thumbPath' => '@webroot/images/[[profile]]_[[pk]].[[extension]]',
+                'thumbUrl' => '/images/[[profile]]_[[pk]].[[extension]]',
+                ],
+        ];
+    }
+    */    
     /**
      * @inheritdoc
      */
@@ -36,14 +55,10 @@ class Posts extends \yii\db\ActiveRecord
     {
         return [
             [['title', 'text'], 'required'],
-            //[['img', 'image','extensions' => 'png, jpg'],'required','strict'=>false],
             [['text'], 'string'],
             [['title'], 'string', 'max' => 150],
             [['text_preview'], 'string', 'max' => 250],
-            //[['img','file'],'required'],
-            //[['img'], 'image', 'skipOnEmpty' => true, 'extensions' => 'png, jpg']//пример с GitHub
-            //[['img'], 'file', 'extensions' => 'png, jpg'],
-            //[['img'], 'file', 'extensions' => 'jpg, png', 'mimeTypes' => 'image/jpeg, image/png']//11.01.2016
+            ['img', 'image','extensions' => 'jpeg, gif, png'],//create 12.01.2016 ImageUploadBehavior
         ];
     }
 
@@ -60,51 +75,4 @@ class Posts extends \yii\db\ActiveRecord
             'img' => 'image',
         ];
     }
-    
-    /**
-     * пример с GitHub
-     *
-    public function upload()
-    {
-        if ($this->validate()) {
-            $this->string=substr(uniqid('img'),0,12);
-            $this->image = UploadedFile::getInstance($this, 'img');
-            $this->image->saveAs('web/static/images/'.$this->string.'.'.$this->image->extension);
-            return true;
-        } else {
-            return false;
-        }
-    }
-    */
-    
-    
-    
-    /**
-     * Вылетает, если не указывать файл для загрузки
-     * 
-     * @param type $insert
-     * @return type
-     * 11.01.2016
-     */
-    public function beforeSave($insert){
-        if($this->isNewRecord){
-            //generate & upload
-            $this->string=substr(uniqid('img'),0,12);
-            $this->image=UploadedFile::getInstance($this,'img');
-            //\Yii::$app->request->baseUrl.'/web/static/images/'
-            $this->filename='web/static/images/'.$this->string.'.'.$this->image->extension;
-            $this->image->saveAs($this->filename);
-            $this->text_preview=  BaseStringHelper::truncate($this->text,250,'...');
-                
-            //save
-            $this->img='/'.$this->filename;
-        }else{
-            $this->image=UploadedFile::getInstance($this,'img');
-            if($this->image){
-                $this->image->saveAs(substr($this->img,1));
-            }
-        }
-        return parent::beforeSave($insert);
-    }
-    
 }
