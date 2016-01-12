@@ -7,6 +7,7 @@ use app\models\RegForm;
 use app\models\User;
 use app\models\Profile;
 
+
 class MainController extends BehaviorsController{
     
     //public $layout='basic';

@@ -1,4 +1,5 @@
 <?php
+use yii\helpers\Html;
 
 $this->registerJsFile('@web/js/main-index.js',['position'=>$this::POS_HEAD],'main-index');
 //$this->registerJs('alert("HELLO!")',$this::POS_READY,'hello-message');

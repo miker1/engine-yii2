@@ -1,6 +1,7 @@
 {
     "name": "user/engine.yii2",
     "require": {
-        "2amigos/yii2-ckeditor-widget": "~1.0"
+        "2amigos/yii2-ckeditor-widget": "~1.0",
+        "yii-dream-team/yii2-upload-behavior": "*"
     }
 }
